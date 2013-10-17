@@ -47,6 +47,7 @@ public class UIButtonSound : MonoBehaviour
 		if (enabled && trigger == Trigger.OnClick)
 		{
 			NGUITools.PlaySound(audioClip, volume, pitch);
+
 		}
 	}
 }
