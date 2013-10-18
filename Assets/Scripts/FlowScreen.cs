@@ -5,7 +5,6 @@ using System.Collections;
 public class FlowScreen : MonoBehaviour {
 	
 	
-	
 	public enum MenuScreen
 	{
 		Intro,
@@ -13,6 +12,7 @@ public class FlowScreen : MonoBehaviour {
 		Tutorial,
 		MakerRobot,
 		MyRobots,
+		PlayAnimation,
 	}
 	
 	public enum Trigger
@@ -25,7 +25,9 @@ public class FlowScreen : MonoBehaviour {
 	}
 	
 	public Trigger trigger = Trigger.OnClick;
-	public MenuScreen m_screen = MenuScreen.Intro;
+	public MenuScreen actionButton = MenuScreen.Intro;
+	public GameObject nextScreen = null;
+	public string nameAnimation = "";
 	
 	// Use this for initialization
 	void Start () {
@@ -41,26 +43,45 @@ public class FlowScreen : MonoBehaviour {
 	{
 		if (enabled && trigger == Trigger.OnClick)
 		{
-			switch(m_screen){
-				
-				case MenuScreen.Intro:
-					Application.LoadLevel("Intro");
-					break;
-				case MenuScreen.Main:
-					Application.LoadLevel("Main");
-					break;
-				case MenuScreen.Tutorial:
-					Application.LoadLevel("Tutorial");
-					break;
-				case MenuScreen.MakerRobot:
-					Application.LoadLevel("MakerRobot");
-					break;
-				case MenuScreen.MyRobots:
-					Application.LoadLevel("MyRobots");
-					break;
-			}
 			
+			ActionButton();
 
 		}
 	}
+	
+	void ActionButton()
+	{
+		switch(actionButton)
+		{
+				
+			case MenuScreen.Intro:
+				Application.LoadLevel("Intro");
+				break;
+			case MenuScreen.Main:
+				Application.LoadLevel("Main");
+				break;
+			case MenuScreen.Tutorial:
+				Application.LoadLevel("Tutorial");
+				break;
+			case MenuScreen.MakerRobot:
+				Application.LoadLevel("MakerRobot");
+				break;
+			case MenuScreen.MyRobots:
+				Application.LoadLevel("MyRobots");
+				break;
+			case MenuScreen.PlayAnimation:
+				this.transform.parent.GetComponent<Animation>().Play(nameAnimation);
+				nextScreen.GetComponent<Animation>().Play(nameAnimation);
+				break;
+		}
+	}
+	
+	void ActiveScreen()
+	{
+		if(nextScreen!= null)
+			nextScreen.SetActive(true);
+		
+	}
+	
+	
 }
